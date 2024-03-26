@@ -16,11 +16,14 @@ def ping_server(url):
         print(f"Error occurred while pinging the server {url}: {e}")
 
 def main():
-    server_url = os.getenv('SERVER_URL')
-    if server_url:
-        ping_server(server_url)
+    server_urls_env = os.getenv('SERVER_URLS')  # Notice the plural in the variable name
+    if server_urls_env:
+        # Split the SERVER_URLS environment variable by commas (or your chosen delimiter)
+        server_urls = server_urls_env.split(',')  
+        for url in server_urls:
+            ping_server(url.strip())  # Strip whitespace to clean the URLs
     else:
-        print("SERVER_URL environment variable is not set.")
+        print("SERVER_URLS environment variable is not set or is empty.")
 
 if __name__ == "__main__":
     main()
